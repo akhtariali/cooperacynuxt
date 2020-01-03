@@ -76,48 +76,63 @@
             </b-row>
             <!-- BUDGET BAR -->
             <b-row class="m-0 p-0 w-100">
-              <b-col cols="12">
-                <div
-                  v-if="project.stage == 7"
-                  class="progress-bar btrust coogray"
-                  :class="{
-                    'progress-zero': progress(project) == 0
-                  }"
-                  role="progressbar"
-                  :style="{
-                    width: progress(project) + '%',
-                    maxWidth: '100%'
-                  }"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  BUDGET: &nbsp;&nbsp;{{ Math.round(collected(project)) }} of
-                  €{{ Math.round(project.budget) }}
+              <b-col
+                cols="12"
+                class="progress-container"
+                v-if="project.stage == 7"
+              >
+                <b>BUDGET:</b>
+                <div class="progress budget">
+                  <div
+                    class="progress-bar bequivalence"
+                    :class="{
+                      'progress-zero': progress(project) <= 0
+                    }"
+                    role="progressbar"
+                    :style="{
+                      width: progress(project) + '%',
+                      maxWidth: '100%'
+                    }"
+                    :aria-valuenow="progress(project)"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ progress(project) + '%' }}
+                  </div>
                 </div>
+                {{ Math.round(collected(project)) }} of €{{
+                  Math.round(project.budget)
+                }}
               </b-col>
             </b-row>
             <!-- HUDGET BAR -->
             <b-row class="m-0 p-0 w-100">
-              <b-col cols="12">
-                <div
-                  v-if="project.category != 4 || project.hudget != 0"
-                  class="progress-bar bfreedom mt-2"
-                  :class="{
-                    'progress-zero': progress(project, 'h') == 0
-                  }"
-                  role="progressbar"
-                  :style="{
-                    width: progress(project, 'h') + '%',
-                    maxWidth: '100%'
-                  }"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  HUDGET: &nbsp;&nbsp;{{ project.professional }} of
-                  {{ project.hudget }}
+              <b-col
+                class="progress-container"
+                cols="12"
+                v-if="project.category != 4 || project.hudget != 0"
+              >
+                <b>HUDGET:</b>
+                <div class="progress hudget">
+                  <div
+                    class="progress-bar bfreedom"
+                    role="progressbar"
+                    :class="{
+                      'progress-zero': progress(project, 'h') == 0
+                    }"
+                    :style="{
+                      width: progress(project, 'h') + '%',
+                      maxWidth: '100%'
+                    }"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ progress(project, 'h') + '%' }}
+                  </div>
                 </div>
+                {{ project.professional }} of
+                {{ project.hudget }}
               </b-col>
             </b-row>
             <b-row class="m-0 p-0 w-100">
@@ -214,10 +229,7 @@ export default {
   data() {
     return {
       isHover: null,
-      projectTypes: [
-        { id: 1, name: 'projects' },
-        { id: 2, name: 'archived' }
-      ]
+      projectTypes: [{ id: 1, name: 'projects' }, { id: 2, name: 'archived' }]
     }
   },
   computed: {

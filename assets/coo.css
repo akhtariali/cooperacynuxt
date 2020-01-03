@@ -100,9 +100,25 @@ a:hover {
   border: 1px solid #777;
   border-radius: 20px;
 }
+.progress-container {
+  margin-bottom: 10px;
+}
+.progress-bar {
+  font-weight: 500;
+  color: white !important;
+}
+.progress {
+  border-radius: 100px;
+}
+.progress.budget {
+  background-color: rgb(252, 228, 204);
+}
+.progress.hudget {
+  background-color: rgb(196, 230, 253);
+}
 .progress-zero {
   color: #777;
-  padding-left: 2px;
+  width: 5% !important;
 }
 .img-100 {
   width: 100%;
